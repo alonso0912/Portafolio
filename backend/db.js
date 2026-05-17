@@ -1,21 +1,22 @@
-const app = require('./app')
-const { connectDB, seedDatabase } = require('./db')
-require('dotenv').config()
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+const User = require('./models/User')
+const Profile = require('./models/Profile')
+const Project = require('./models/Project')
+const Skill = require('./models/Skill')
+const ResumeItem = require('./models/ResumeItem')
 
-const PORT = process.env.PORT || 5000
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/portafolio'
+const connectDB = async (uri) => {
+  if (mongoose.connection.readyState >= 1) {
+    return mongoose.connection
+  }
+  return mongoose.connect(uri)
+}
 
-connectDB(MONGO_URI)
-  .then(async () => {
-    console.log('Conexión a MongoDB establecida')
-    await seedDatabase()
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en http://localhost:${PORT}`)
-    })
-  })
-  .catch((error) => {
-    console.error('Error conectando a MongoDB:', error.message)
-  })
+const seedDatabase = async () => {
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@portafolio.com'
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin1234'
+
   const admin = await User.findOne({ email: ADMIN_EMAIL })
   if (!admin) {
     const password = await bcrypt.hash(ADMIN_PASSWORD, 10)
@@ -112,15 +113,4 @@ connectDB(MONGO_URI)
   }
 }
 
-mongoose
-  .connect(MONGO_URI)
-  .then(async () => {
-    console.log('Conexión a MongoDB establecida')
-    await seedDatabase()
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en http://localhost:${PORT}`)
-    })
-  })
-  .catch((error) => {
-    console.error('Error conectando a MongoDB:', error.message)
-  })
+module.exports = { connectDB, seedDatabase }

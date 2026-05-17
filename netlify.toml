@@ -1,0 +1,24 @@
+[build]
+  base = "frontend"
+  publish = "dist"
+  functions = "netlify/functions"
+  command = "npm run build"
+
+[build.environment]
+  VITE_API_URL = "/"
+  # Configura estas variables en Netlify con tus valores reales:
+  # MONGO_URI = "mongodb+srv://usuario:clave@cluster.mongodb.net/portafolio"
+  # ADMIN_EMAIL = "admin@portafolio.com"
+  # ADMIN_PASSWORD = "Admin1234"
+  # JWT_SECRET = "mi_clave_secreta_123"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
