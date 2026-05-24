@@ -7,7 +7,13 @@ function Hero({ profile }) {
         <p>{profile?.summary || 'Construyo experiencias digitales con aplicaciones web modernas, APIs seguras y diseños que convierten.'}</p>
         <div className="hero-actions">
           <a className="button" href="#contact">Contáctame</a>
-          <a className="button button-outline" href={profile?.cvUrl || '/CV.pdf'} target="_blank" rel="noreferrer">Descargar CV</a>
+          <a
+            className="button button-outline"
+            href={profile?.cvUrl || '/CV.pdf'}
+            download="CV.pdf"
+          >
+            Descargar CV
+          </a>
         </div>
       </div>
       <div className="hero-details">

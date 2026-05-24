@@ -14,14 +14,24 @@ const connectDB = async (uri) => {
 }
 
 const seedDatabase = async () => {
+  const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin'
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@portafolio.com'
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin1234'
 
   const admin = await User.findOne({ email: ADMIN_EMAIL })
   if (!admin) {
     const password = await bcrypt.hash(ADMIN_PASSWORD, 10)
-    await User.create({ name: 'Administrador', email: ADMIN_EMAIL, password, role: 'admin' })
-    console.log('Admin creado:', ADMIN_EMAIL)
+    await User.create({
+      name: 'Administrador',
+      username: ADMIN_USERNAME,
+      email: ADMIN_EMAIL,
+      password,
+      role: 'admin',
+    })
+    console.log('Admin creado:', ADMIN_USERNAME)
+  } else if (!admin.username) {
+    admin.username = ADMIN_USERNAME
+    await admin.save()
   }
 
   const profileExists = await Profile.findOne()
@@ -46,7 +56,7 @@ const seedDatabase = async () => {
         title: 'Portafolio Profesional',
         description:
           'Sitio web de presentación con secciones de proyectos, habilidades, experiencia y contacto.',
-        image: '/project-portfolio.png',
+        image: '/project-portfolio.svg',
         repository: 'https://github.com/tuusuario/portafolio',
         url: 'https://tu-dominio.com',
         technologies: ['React', 'Vite', 'Node.js', 'Express', 'MongoDB'],
@@ -55,7 +65,7 @@ const seedDatabase = async () => {
         title: 'Tienda Web',
         description:
           'E-commerce responsive con carrito y filtros para una experiencia de compra clara.',
-        image: '/project-store.png',
+        image: '/project-store.svg',
         repository: 'https://github.com/tuusuario/tienda-web',
         url: 'https://tienda.tu-dominio.com',
         technologies: ['React', 'Express', 'MongoDB'],
@@ -63,7 +73,7 @@ const seedDatabase = async () => {
       {
         title: 'API de Administración',
         description: 'Backend con autenticación JWT para un panel privado de gestión de contenidos.',
-        image: '/project-api.png',
+        image: '/project-api.svg',
         repository: 'https://github.com/tuusuario/api-admin',
         url: 'https://api.tu-dominio.com',
         technologies: ['Node.js', 'Express', 'JWT'],

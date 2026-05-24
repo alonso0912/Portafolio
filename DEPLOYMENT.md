@@ -4,10 +4,10 @@
 
 ### Requisitos Funcionales
 - ✅ **RF-01**: Página de inicio con presentación del desarrollador
-- ✅ **RF-02**: Listado de proyectos con nombre, descripción, imagen, tecnologías y enlace al repositorio
+- ✅ **RF-02**: Listado de proyectos con nombre, descripción, imagen visible, tecnologías y enlace al repositorio
 - ✅ **RF-03**: Sección de habilidades técnicas agrupadas por categoría
 - ✅ **RF-04**: Formulario de contacto funcional
-- ✅ **RF-05**: Autenticación de administrador (JWT)
+- ✅ **RF-05**: Autenticación de administrador con usuario y contraseña (JWT)
 - ✅ **RF-06**: Panel admin para CRUD de proyectos
 - ✅ **RF-07**: Actualización de perfil del administrador
 - ✅ **RF-08**: Descarga de CV en formato PDF
@@ -16,7 +16,7 @@
 
 ### Requisitos No Funcionales
 - ✅ **RNF-01**: Tiempo de carga < 3 segundos (optimizado con Vite)
-- ✅ **RNF-02**: API responde < 500ms (compilado y minificado)
+- ✅ **RNF-02**: API responde < 500ms (verificar con `scripts/test-api-latency.ps1`)
 - ✅ **RNF-03**: Contraseñas encriptadas (bcryptjs)
 - ✅ **RNF-04**: Panel admin con JWT
 - ✅ **RNF-05**: Disponibilidad 99% (Netlify)

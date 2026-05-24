@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Portafolio Profesional">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg1)" rx="24"/>
+  <rect x="48" y="56" width="220" height="18" fill="rgba(255,255,255,0.9)" rx="9"/>
+  <rect x="48" y="92" width="320" height="12" fill="rgba(255,255,255,0.55)" rx="6"/>
+  <rect x="48" y="116" width="280" height="12" fill="rgba(255,255,255,0.45)" rx="6"/>
+  <rect x="48" y="168" width="140" height="36" fill="rgba(255,255,255,0.25)" rx="18"/>
+  <rect x="360" y="72" width="220" height="216" fill="rgba(255,255,255,0.15)" rx="20"/>
+  <text x="48" y="300" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">Portafolio</text>
+</svg>

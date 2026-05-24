@@ -33,6 +33,14 @@ function Projects() {
         <div className="grid cards-grid">
           {projects.map((project) => (
             <article key={project._id} className="card project-card">
+              {project.image ? (
+                <img
+                  className="project-image"
+                  src={project.image}
+                  alt={`Captura del proyecto ${project.title}`}
+                  loading="lazy"
+                />
+              ) : null}
               <div className="card-content">
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>

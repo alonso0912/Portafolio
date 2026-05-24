@@ -9,7 +9,7 @@ function Nav({ adminMode }) {
         <li><a href="#skills">Habilidades</a></li>
         <li><a href="#resume">Experiencia</a></li>
         <li><a href="#contact">Contacto</a></li>
-        <li><a href="#admin">Admin</a></li>
+        {adminMode ? <li><a href="#admin">Panel admin</a></li> : null}
       </ul>
       {adminMode ? <span className="nav-status">Modo admin</span> : null}
     </nav>

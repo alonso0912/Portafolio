@@ -4,8 +4,14 @@ const User = require('../models/User')
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body
-    const user = await User.findOne({ email })
+    const { username, password } = req.body
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Usuario y contraseña son obligatorios' })
+    }
+
+    const user = await User.findOne({
+      $or: [{ username }, { email: username }],
+    })
     if (!user) return res.status(401).json({ error: 'Credenciales inválidas' })
 
     const validPassword = await bcrypt.compare(password, user.password)

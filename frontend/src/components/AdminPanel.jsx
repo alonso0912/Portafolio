@@ -5,9 +5,24 @@ function AdminPanel({ token, onLogin, onLogout }) {
   const [mode, setMode] = useState(token ? 'manage' : 'login')
   const [projects, setProjects] = useState([])
   const [profile, setProfile] = useState(null)
-  const [credentials, setCredentials] = useState({ email: '', password: '' })
-  const [projectForm, setProjectForm] = useState({ title: '', description: '', repository: '', url: '', technologies: '' })
-  const [profileForm, setProfileForm] = useState({ name: '', title: '', location: '', email: '', phone: '', summary: '' })
+  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [projectForm, setProjectForm] = useState({
+    title: '',
+    description: '',
+    image: '',
+    repository: '',
+    url: '',
+    technologies: '',
+  })
+  const [profileForm, setProfileForm] = useState({
+    name: '',
+    title: '',
+    location: '',
+    email: '',
+    phone: '',
+    summary: '',
+    cvUrl: '/CV.pdf',
+  })
   const [message, setMessage] = useState(null)
   const [selectedProject, setSelectedProject] = useState(null)
 
@@ -38,6 +53,7 @@ function AdminPanel({ token, onLogin, onLogout }) {
         email: data.email || '',
         phone: data.phone || '',
         summary: data.summary || '',
+        cvUrl: data.cvUrl || '/CV.pdf',
       })
     } catch (error) {
       console.error(error)
@@ -89,7 +105,7 @@ function AdminPanel({ token, onLogin, onLogout }) {
         }, token)
         setMessage('Proyecto agregado')
       }
-      setProjectForm({ title: '', description: '', repository: '', url: '', technologies: '' })
+      setProjectForm({ title: '', description: '', image: '', repository: '', url: '', technologies: '' })
       setSelectedProject(null)
       await loadProjects()
     } catch (error) {
@@ -102,6 +118,7 @@ function AdminPanel({ token, onLogin, onLogout }) {
     setProjectForm({
       title: project.title,
       description: project.description,
+      image: project.image || '',
       repository: project.repository,
       url: project.url || '',
       technologies: (project.technologies || []).join(', '),
@@ -137,14 +154,14 @@ function AdminPanel({ token, onLogin, onLogout }) {
       <div className="section-header">
         <span>Administrador</span>
         <h2>Panel privado</h2>
-        <p>Inicia sesión para administrar proyectos y actualizar tu perfil.</p>
+        <p>Inicia sesión con tu usuario y contraseña para administrar proyectos y actualizar tu perfil.</p>
       </div>
 
       {!token ? (
         <form className="auth-form" onSubmit={handleLoginSubmit}>
           <label>
-            Email
-            <input name="email" type="email" value={credentials.email} onChange={handleLoginChange} required />
+            Usuario
+            <input name="username" value={credentials.username} onChange={handleLoginChange} required autoComplete="username" />
           </label>
           <label>
             Contraseña
@@ -168,6 +185,10 @@ function AdminPanel({ token, onLogin, onLogout }) {
               <label>
                 Descripción
                 <textarea name="description" rows="4" value={projectForm.description} onChange={handleProjectChange} required />
+              </label>
+              <label>
+                Imagen (URL o ruta, ej. /project-portfolio.svg)
+                <input name="image" value={projectForm.image} onChange={handleProjectChange} placeholder="/project-portfolio.svg" />
               </label>
               <label>
                 Repositorio
@@ -225,6 +246,10 @@ function AdminPanel({ token, onLogin, onLogout }) {
               <label>
                 Resumen
                 <textarea name="summary" rows="5" value={profileForm.summary} onChange={handleProfileChange} required />
+              </label>
+              <label>
+                URL del CV (PDF)
+                <input name="cvUrl" value={profileForm.cvUrl} onChange={handleProfileChange} placeholder="/CV.pdf" required />
               </label>
               <button className="button" type="submit">Guardar perfil</button>
             </form>

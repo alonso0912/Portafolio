@@ -251,6 +251,16 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+}
+
+.project-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  background: var(--accent-soft);
 }
 
 .card-actions {
